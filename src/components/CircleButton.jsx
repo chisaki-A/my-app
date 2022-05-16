@@ -1,18 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { string } from 'prop-types';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { string, shape, func } from 'prop-types';
+import { Feather } from '@expo/vector-icons';
 
 export default function CircleButton(props){
-  const { children } = props;
+  const { style, name, onPress } = props;
   return(
-    <View style={styles.circleButton}>
-      <Text style={styles.circleButtonRabel}>{children}</Text>
-    </View>
+    <TouchableOpacity style={[styles.circleButton, style]} onPress={onPress}>
+      <Feather name={name} size={32} color="white" />
+    </TouchableOpacity>
   );
 }
 
 CircleButton.propTypes = {
-  children: string.isRequired,
+  style: shape(),
+  name: string.isRequired,
+  onPress: func,
+};
+
+CircleButton.dafaultProps = {
+  style: null,
+  onPress: null,
 };
 
 const styles = StyleSheet.create({
@@ -35,7 +43,7 @@ const styles = StyleSheet.create({
     elevation: 9,
   },
 
-  circleButtonRabel: {
+  circleButtonLabel: {
     color: 'white',
     fontSize: 40,
     lineHeight: 40,
