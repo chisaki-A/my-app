@@ -12,18 +12,10 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
-
+import { firebaseConfig } from './env';
 
 const Stack = createStackNavigator();
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDo2yq8msacrheZB3H8_XX8FdR3jnHemfo",
-  authDomain: "my-app-63ba3.firebaseapp.com",
-  projectId: "my-app-63ba3",
-  storageBucket: "my-app-63ba3.appspot.com",
-  messagingSenderId: "1003575535968",
-  appId: "1:1003575535968:web:9df737c005444801fd1605"
-};
 if (firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
 }
