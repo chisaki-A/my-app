@@ -34,11 +34,12 @@ export default function LogInScreen(props) {
         />
         <Button
           label="Submit"
-          onPress={() => { navigation.reset({
-            index: 0,
-            routes: [{ name: 'MemoList' }],
-          });
-        }}
+          onPress={() => { 
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MemoList' }],
+            });
+          }}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not resistered?</Text>

@@ -11,17 +11,17 @@ export default function SignUpScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] =useState('');
 
-  function handlePress() {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(user.uid);
-      });
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'MemoList' }],
-    });
-  }
+  // function handlePress() {
+  //   // firebase.auth().createUserWithEmailAndPassword(email, password)
+  //   //   .then((userCredential) => {
+  //   //     const { user } = userCredential;
+  //   //     console.log(user.uid);
+  //   //   });
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: [{ name: 'MemoList' }],
+  //   });
+  // }
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -47,7 +47,12 @@ export default function SignUpScreen(props) {
         />
         <Button
           label="Submit"
-          onPress={handlePress}
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'MemoList' }],
+            });
+          }}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already resistered?</Text>

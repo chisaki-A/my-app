@@ -1,8 +1,9 @@
 /* eslint-disable react/function-component-definition */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-// import firebase from 'firebase';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import firebase from 'firebase';
 
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
@@ -11,46 +12,56 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
+
+
 const Stack = createStackNavigator();
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDtjJ03MO3lA_FrdVn8umkdiVS6uB3IKm4',
-//   authDomain: 'memoapp-3cef6.firebaseapp.com',
-//   projectId: 'memoapp-3cef6',
-//   storageBucket: 'memoapp-3cef6.appspot.com',
-//   messagingSenderId: '698520717147',
-//   appId: '1:698520717147:web:10918b29879e303d073c7e',
-// };
-
-// if (firebase.apps.length === 0){
-//   firebase.initializeApp(firebaseConfig);
-// }
-
-// export default function App(){
-//   return(
-//     <MemoDetailScreen/>
-//   );
-// }
+const firebaseConfig = {
+  apiKey: "AIzaSyDo2yq8msacrheZB3H8_XX8FdR3jnHemfo",
+  authDomain: "my-app-63ba3.firebaseapp.com",
+  projectId: "my-app-63ba3",
+  storageBucket: "my-app-63ba3.appspot.com",
+  messagingSenderId: "1003575535968",
+  appId: "1:1003575535968:web:9df737c005444801fd1605"
+};
+if (firebase.apps.length === 0){
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='SignUp'
+        initialRouteName='LogIn'
         screenOptions={{
           headerStyle: { backgroundColor: '#1A9DBD'},
           headerTitleStyle: { color: 'white'},
           headerTitle: 'Memo App',
           headerTintColor: 'white',
           headerBackTitle: 'Back',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          gestureEnabled: true,
+          gestureDirection:'horizontal',
         }}
       >
         <Stack.Screen name="MemoList" component={MemoListScreen} />
         <Stack.Screen name="MemoDetail" component={MemoDetailScreen} />
         <Stack.Screen name="MemoEdit" component={MemoEditScreen} />
         <Stack.Screen name="MemoCreate" component={MemoCreateScreen} />
-        <Stack.Screen name="LogIn" component={LogInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen
+          name="LogIn"
+          component={LogInScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
