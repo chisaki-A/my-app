@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+// import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import firebase from 'firebase';
 
 import MemoListScreen from './src/screens/MemoListScreen';

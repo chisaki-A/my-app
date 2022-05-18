@@ -1,23 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { shape, string } from 'prop-types';
 import {
   View, ScrollView, Text, StyleSheet,
 } from 'react-native';
+import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
+import { dateToString } from '../utils';
+// import { useEffect } from 'react/cjs/react.production.min';
+
 
 export default function MemoDetailScreen(props){
-  const { navigation } = props;
+  const { navigation, route } = props;
+  const { id } = route.params;
+  console.log(id);
+  const [memo, setMemo] = useState(null);
+
+  useEffect(() => {
+    const { currentUser } = firebase.auth();
+    let unsbscribe = () => {};
+    if (currentUser){
+      const db = firebase.firestore();
+      const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
+      unsbscribe = ref.onSnapshot((doc) => {
+        console.log(doc.id, doc.data());
+        const data = doc.data();
+        setMemo({
+          id: doc.id,
+          bodyText: data.bodyText,
+          updatedAt: data.updatedAt.toDate(),
+        });
+      });
+    }
+    return unsbscribe;
+  }, []);
+
   return(
     <View style={styles.container}>
       <View style={styles.memoheader}>
-        <Text style={styles.memotitle}>買い物リスト</Text>
-        <Text style={styles.memodate}>2020年12月24日 10:00</Text>
+        <Text style={styles.memotitle} numberOfLines={1}>{memo && memo.bodyText}</Text>
+        <Text style={styles.memodate}>{memo && dateToString(memo.updatedAt)}</Text>
       </View>
       <ScrollView style={styles.memobody}>
         <Text style={styles.memotext}>
-          買い物リスト
-          ① (━する) 心覚えに書きとめること。また、その書きとめたもの。手控え。覚え書き。〔舶来語便覧（1912）〕
-          ② 用件などを簡単に書きとめておくための用紙、手帳。
+          {memo && memo.bodyText}
         </Text>
       </ScrollView>
     <CircleButton
@@ -28,6 +54,12 @@ export default function MemoDetailScreen(props){
     </View>
   );
 }
+
+MemoDetailScreen.propTypes = {
+  route: shape({
+    params: shape({ id: string }),
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   container:{
