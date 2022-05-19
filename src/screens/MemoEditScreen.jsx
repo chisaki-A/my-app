@@ -6,6 +6,7 @@ import { shape, string } from 'prop-types';
 import firebase from 'firebase';
 
 import CircleButton from '../components/CircleButton';
+import { translateErrors } from "../utils";
 
 // import fr from "date-fns/esm/locale/fr/index.js";
 // import { id } from "date-fns/locale";
@@ -28,7 +29,8 @@ export default function MemoEditScreen(props) {
           navigation.goBack();
         })
         .catch((error) => {
-          Alert.alert(error.code);
+          const errorMsg = translateErrors(error.code);
+          Alert.alert(errorMsg.title, errorMsg.descriotion);
         })
     }
   }

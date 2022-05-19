@@ -7,10 +7,34 @@ import { shape, string, instanceOf, arrayOf } from 'prop-types';
 import { Feather } from '@expo/vector-icons';
 import { dateToString } from '../utils';
 
+import firebase from 'firebase';
 
 export default function MemoList(props) {
   const { memos } = props;
   const navigation = useNavigation();
+
+  function deleteMemo(id) {
+    const { currentUser } = firebase.auth();
+    if (currentUser) {
+      const db = firebase.firestore();
+      const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
+      Alert.alert('メモを削除します','よろしいですか？',[
+        {
+          text: 'キャンセル',
+          onPress: () => {},
+        },
+        {
+          text: '削除する',
+          style: 'destructive',
+          onPress: () => {
+            ref.delete().catch(() => {
+              Alert.alert('削除に失敗しました');
+            });
+          },
+        },
+      ]);
+    }
+  }
 
   function renderItem({ item }) {
     return(
@@ -25,7 +49,7 @@ export default function MemoList(props) {
         </View>
         <TouchableOpacity
           style={styles.memoDelite}
-          onPress={() => { Alert.alert('Are you sure?'); }}
+          onPress={() => { deleteMemo(item.id); }}
         >
           <Feather name="x" size={16} color="#b0b0b0" />
         </TouchableOpacity>
