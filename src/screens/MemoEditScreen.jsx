@@ -52,7 +52,6 @@ export default function MemoEditScreen(props) {
   );
 }
 
-
 MemoEditScreen.propTypes = {
   route: shape({
     params: shape({ id: string, bodyText: string }),
@@ -64,8 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    paddingHorizontal: 27,
-    paddingVertical: 32,
     flex: 1,
   },
   input: {
@@ -73,5 +70,8 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     lineHeight: 24,
     fontSize: 16,
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 27,
   },
 });

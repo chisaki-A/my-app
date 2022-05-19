@@ -1,5 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import React from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 // import { AsyncStorage } from '@react-native-async-storage/async-storage';
@@ -17,10 +18,12 @@ import { firebaseConfig } from './env';
 require ('firebase/firestore');
 
 const Stack = createStackNavigator();
+LogBox.ignoreLogs(['Setting a timer']);
 
 if (firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
 }
+
 
 export default function App() {
   return (
