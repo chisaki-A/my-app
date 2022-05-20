@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "memo",
+    "slug": "memo",
     "version": "1.0.0",
     "privacy": "unlisted",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -19,12 +19,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "memo.app.test",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "memo.app.test",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon_adaptive.png",
+        "backgroundColor": "./assets/icon_adaptive_bg.png"
       }
     },
     "web": {
